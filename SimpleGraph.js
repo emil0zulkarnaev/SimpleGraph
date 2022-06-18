@@ -32,24 +32,7 @@ class SimpleGraph {
 	setXRounding(func) { this.xRounding = func; }
 	setYRounding(func) { this.yRounding = func; }
 
-	// setPoint(x,y,r,color) {
-	// 	this.points.push({'x': x, 'y': y, 'r': r, 'color': color});
-	// }
-
-	// drawPoint(point) {
-	// 	let x = point.x,
-	// 		y = point.y,
-	// 		r = point.r,
-	// 		color = point.color;
-	// 	let circle = document.createElementNS(this.xmlns, "circle");
-	// 	circle.setAttributeNS(null, 'cx', x);
-	// 	circle.setAttributeNS(null, 'cy', y);
-	// 	circle.setAttributeNS(null, 'r', r);
-	// 	circle.setAttributeNS(null, 'fill', color);
-
-	// 	this.points_elements.push(circle);
-	// 	this.svg.appendChild(circle);
-	// }
+	setGrid(flag) { this.grid = flag; }
 
 	drawAxes() {
 		{
@@ -147,23 +130,25 @@ class SimpleGraph {
 				circle.setAttributeNS(null, "r", this.data[j]["width"]);
 				circle.setAttributeNS(null, "fill", this.data[j]["color"]);
 
-				let grid_line = document.createElementNS(this.xmlns, "line");
-				grid_line.setAttributeNS(null, "x1", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
-				grid_line.setAttributeNS(null, "y1", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
-				grid_line.setAttributeNS(null, "x2", this.paddingX-10);
-				grid_line.setAttributeNS(null, "y2", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
-				grid_line.setAttributeNS(null, "stroke", "rgba(0,0,0,.2)");
+				if (this.grid) {
+					let grid_line = document.createElementNS(this.xmlns, "line");
+					grid_line.setAttributeNS(null, "x1", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
+					grid_line.setAttributeNS(null, "y1", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
+					grid_line.setAttributeNS(null, "x2", this.paddingX-10);
+					grid_line.setAttributeNS(null, "y2", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
+					grid_line.setAttributeNS(null, "stroke", "rgba(0,0,0,.2)");
 
-				this.grid_elements.push(grid_line);
+					this.grid_elements.push(grid_line);
 
-				grid_line = document.createElementNS(this.xmlns, "line");
-				grid_line.setAttributeNS(null, "x1", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
-				grid_line.setAttributeNS(null, "y1", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
-				grid_line.setAttributeNS(null, "x2", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
-				grid_line.setAttributeNS(null, "y2", this.params.height-(this.paddingY-10));
-				grid_line.setAttributeNS(null, "stroke", "rgba(0,0,0,.2)");
+					grid_line = document.createElementNS(this.xmlns, "line");
+					grid_line.setAttributeNS(null, "x1", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
+					grid_line.setAttributeNS(null, "y1", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
+					grid_line.setAttributeNS(null, "x2", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
+					grid_line.setAttributeNS(null, "y2", this.params.height-(this.paddingY-10));
+					grid_line.setAttributeNS(null, "stroke", "rgba(0,0,0,.2)");
 
-				this.grid_elements.push(grid_line);
+					this.grid_elements.push(grid_line);
+				}
 
 				let content = String(this.yRounding(row[i][1]));
 				let text = document.createElementNS(this.xmlns, "text");
@@ -211,23 +196,25 @@ class SimpleGraph {
 
 					this.data_lines[j].push(circle);
 
-					let grid_line = document.createElementNS(this.xmlns, "line");
-					grid_line.setAttributeNS(null, "x1", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
-					grid_line.setAttributeNS(null, "y1", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
-					grid_line.setAttributeNS(null, "x2", this.paddingX-10);
-					grid_line.setAttributeNS(null, "y2", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
-					grid_line.setAttributeNS(null, "stroke", "rgba(0,0,0,.2)");
+					if (this.grid) {
+						let grid_line = document.createElementNS(this.xmlns, "line");
+						grid_line.setAttributeNS(null, "x1", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
+						grid_line.setAttributeNS(null, "y1", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
+						grid_line.setAttributeNS(null, "x2", this.paddingX-10);
+						grid_line.setAttributeNS(null, "y2", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
+						grid_line.setAttributeNS(null, "stroke", "rgba(0,0,0,.2)");
 
-					this.grid_elements.push(grid_line);
+						this.grid_elements.push(grid_line);
 
-					grid_line = document.createElementNS(this.xmlns, "line");
-					grid_line.setAttributeNS(null, "x1", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
-					grid_line.setAttributeNS(null, "y1", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
-					grid_line.setAttributeNS(null, "x2", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
-					grid_line.setAttributeNS(null, "y2", this.params.height-(this.paddingY-10));
-					grid_line.setAttributeNS(null, "stroke", "rgba(0,0,0,.2)");
+						grid_line = document.createElementNS(this.xmlns, "line");
+						grid_line.setAttributeNS(null, "x1", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
+						grid_line.setAttributeNS(null, "y1", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
+						grid_line.setAttributeNS(null, "x2", this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
+						grid_line.setAttributeNS(null, "y2", this.params.height-(this.paddingY-10));
+						grid_line.setAttributeNS(null, "stroke", "rgba(0,0,0,.2)");
 
-					this.grid_elements.push(grid_line);
+						this.grid_elements.push(grid_line);
+					}
 
 					let content = String(this.yRounding(row[i][1]));
 					let text = document.createElementNS(this.xmlns, "text");
