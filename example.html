@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv='cache-control' content='no-cache'>
+	<meta http-equiv='expires' content='0'>
+	<meta http-equiv='pragma' content='no-cache'>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	#container {
+		margin: 150px auto;
+		width: 900px;
+		height: 500px;
+		box-shadow: 0 0 1px 0;
+	}
+	</style>
+</head>
+<body>
+	<div id="container">
+	</div>
+	
+	<script src="SimpleGraph.js"></script>
+	<script>
+	var graph = new SimpleGraph(document.getElementById("container"));
+	graph.data = [
+		{
+			"data": [
+					[0, 0],
+					[5, 5],
+					[10, 20],
+					[30, 40],
+					[50, 10]
+				],
+			"color": "green",
+			"width": 5
+		},
+		{
+			"data": [
+					[0, 0],
+					[5, 20],
+					[10, 3],
+					[30, 15],
+					[50, 100]
+				],
+			"color": "red",
+			"width": 10
+		},
+	];
+	graph.update();
+	</script>
+</body>
+</html>
