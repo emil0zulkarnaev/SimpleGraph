@@ -25,13 +25,18 @@
 	graph.data = [
 		{
 			"data": [
-					// [0, 5],
-					// [1, 7],
-					// [2, 10],
-					// [5, 60],
-					// [7, 30],
-					// [10, 15]
+					[0, 5],
+					[1, 7],
+					[2, 10.1034342342],
+					[5, 60],
+					[7, 30.12034120341234132],
+					[10, 15]
 				],
+			"points": [
+					[3, 40, "rgba(255,0,0,.5)"],
+					[8, 40, "rgba(255,0,0,.5)"]
+
+			],
 			"color": "green",
 			"width": 5
 		},
@@ -55,13 +60,13 @@
 		graph.data[0].data.push([IND, Math.random()*(MAX+MIN)-MIN]);
 		graph.update();
 		IND++;
-		if (IND > 5) {
+		if (IND > 1000) {
 			graph.data[0].data = graph.data[0].data.slice(1);
 		}
-		setTimeout(update, 1000);
+		setTimeout(update, 10);
 	}
 
-	update();
+	//update();
 	</script>
 </body>
 </html>
