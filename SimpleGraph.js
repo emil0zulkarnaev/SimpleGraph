@@ -68,7 +68,7 @@ class SimpleGraph {
 
 		this.grid_elements = [];
 
-		let ys = [];
+		let ys = [], xs = [];
 
 		for (let j=0; j<this.data.length; j++) {
 			this.data_lines.push([]);
@@ -160,16 +160,26 @@ class SimpleGraph {
 				let current_y = this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory),
 					flag = false;
 
+				let finded_ind = -1;
 				for (let yi=0; yi<ys.length; yi++) {
-					if (Math.abs(ys[yi]-current_y) < this.fontSize) {
+					if (Math.abs(ys[yi][0]-current_y) < this.fontSize) {
 						flag = true;
+						finded_ind = yi;
 						break;
 					}
 				}
 
 				if (!flag) {
-					ys.push(current_y);
+					ys.push([current_y, [row[i][1]], text]);
 					this.grid_elements.push(text);
+				} else {
+					let average = 0;
+					ys[finded_ind][1].push(row[i][1]);
+					for (let c=0; c<ys[finded_ind][1].length; c++) {
+						average += ys[finded_ind][1][c];
+					}
+					average /= ys[finded_ind][1].length;
+					ys[finded_ind][2].innerHTML = this.yRounding(average);
 				}
 
 				content = String(this.xRounding(row[i][0]));
@@ -178,7 +188,30 @@ class SimpleGraph {
 				text.setAttributeNS(null, 'x', this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx);
 				text.setAttributeNS(null, 'y', this.params.height-(this.paddingY-this.fontSize));
 
-				this.grid_elements.push(text);
+				let current_x = this.paddingX+(this.params.width-this.paddingX*2)*(row[i][0]-minx)/denominatorx;
+				
+				flag = false;
+				finded_ind = -1;
+				for (let xi=0; xi<xs.length; xi++) {
+					if (Math.abs(xs[xi][0]-current_x) < this.fontSize*content.length*1.6) {
+						flag = true;
+						finded_ind = xi;
+						break;
+					}
+				}
+
+				if (!flag) {
+					xs.push([current_x, [row[i][0]], text]);
+					this.grid_elements.push(text);
+				} else {
+					let average = 0;
+					xs[finded_ind][1].push(row[i][0]);
+					for (let c=0; c<xs[finded_ind][1].length; c++) {
+						average += xs[finded_ind][1][c];
+					}
+					average /= xs[finded_ind][1].length;
+					xs[finded_ind][2].innerHTML = this.xRounding(average);
+				}
 
 				this.data_lines[j].push(line);
 				this.data_lines[j].push(circle);
@@ -192,7 +225,6 @@ class SimpleGraph {
 					circle.setAttributeNS(null, "cy", this.params.height-(this.paddingY+(this.params.height-this.paddingY*2)*(row[i][1]-miny)/denominatory));
 					circle.setAttributeNS(null, "r", this.data[j]["width"]);
 					circle.setAttributeNS(null, "fill", row[i][2]);
-					console.log(circle);
 
 					this.data_lines[j].push(circle);
 
